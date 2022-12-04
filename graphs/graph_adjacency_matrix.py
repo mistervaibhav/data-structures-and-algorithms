@@ -1,3 +1,6 @@
+from queue import Queue
+
+
 class Graph:
     """non directed, non weighted"""
 
@@ -69,23 +72,35 @@ class Graph:
         visited = dict()
         self.__depth_first_traversal_helper(0, visited)
 
+    def breadth_first_traversal(self):
+        queue = Queue()
+        queue.put(0)
+
+        visited = dict()
+        visited[0] = True
+
+        while not queue.empty():
+            node = queue.get()
+            print("Visited => ", node)
+
+            for i in range(self.vertices):
+                if self.hasEdge(node, i) and not visited.get(i, False):
+                    queue.put(i)
+                    visited[i] = True
+
 
 #################################################################################################################
 
-graph = Graph(7)
+graph = Graph(5)
 
-graph.addEdge(0, 5)
-graph.addEdge(3, 5)
-graph.addEdge(1, 5)
-graph.addEdge(3, 2)
-graph.addEdge(1, 4)
-graph.addEdge(2, 4)
-graph.addEdge(6, 3)
-graph.addEdge(5, 4)
+graph.addEdge(0, 1)
+graph.addEdge(0, 2)
 graph.addEdge(1, 3)
+graph.addEdge(2, 3)
 graph.addEdge(2, 4)
 
 
-graph.depth_first_traversal()
+# graph.depth_first_traversal()
+graph.breadth_first_traversal()
 
 # graph.display()
