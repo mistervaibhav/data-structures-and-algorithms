@@ -35,13 +35,17 @@ class Graph:
                 print(self.matrix[i][j], end=" ")
             print()
 
-    def hasEdge(self, source, destination):
+    def has_edge(self, source, destination):
+
+        if not self.__are_indexes_valid(source, destination):
+            return False
+
         return (
             self.matrix[source][destination] == 1
             and self.matrix[destination][source] == 1
         )
 
-    def addEdge(self, source, destination):
+    def add_edge(self, source, destination):
 
         if not self.__are_indexes_valid(source, destination):
             print(f"CANNOT ADD EDGE BETWEEN {source} AND {destination}")
@@ -50,9 +54,9 @@ class Graph:
         self.__set_matrix_value(source, destination, 1)
         self.__set_matrix_value(destination, source, 1)
 
-    def removeEdge(self, source, destination):
+    def remove_edge(self, source, destination):
 
-        if not self.hasEdge(source, destination):
+        if not self.has_edge(source, destination):
             print(f"CANNOT REMOVE EDGE BETWEEN {source} AND {destination}")
             return
 
@@ -65,7 +69,7 @@ class Graph:
         visited[start] = True
 
         for i in range(self.vertices):
-            if self.hasEdge(start, i) and not visited.get(i, False):
+            if self.has_edge(start, i) and not visited.get(i, False):
                 self.__depth_first_traversal_helper(i, visited)
 
     def depth_first_traversal(self):
@@ -84,23 +88,51 @@ class Graph:
             print("Visited => ", node)
 
             for i in range(self.vertices):
-                if self.hasEdge(node, i) and not visited.get(i, False):
+                if self.has_edge(node, i) and not visited.get(i, False):
                     queue.put(i)
                     visited[i] = True
+
+    def has_path(self, source, destination, visited=dict()) -> bool:
+
+        if self.has_edge(source, destination):
+            return True
+
+        visited[source] = True
+
+        for i in range(self.vertices):
+            if self.has_edge(source, i) and not visited.get(i, False):
+                visited[i] = True
+                if self.has_path(i, destination, visited):
+                    return True
+
+        return False
 
 
 #################################################################################################################
 
 graph = Graph(5)
 
-graph.addEdge(0, 1)
-graph.addEdge(0, 2)
-graph.addEdge(1, 3)
-graph.addEdge(2, 3)
-graph.addEdge(2, 4)
+graph.add_edge(0, 1)
+graph.add_edge(0, 2)
+graph.add_edge(1, 3)
+graph.add_edge(2, 3)
+graph.add_edge(2, 4)
 
 
 # graph.depth_first_traversal()
 graph.breadth_first_traversal()
 
 # graph.display()
+
+
+# if __name__ == "__main__":
+#     vertices, edges = map(int, input().split())
+
+#     graph = Graph(vertices)
+
+#     for i in range(edges):
+#         source, destination = map(int, input().split())
+#         graph.addEdge(source, destination)
+
+#     source, destination = map(int, input().split())
+#     print('true' if graph.has_path(source,destination) else 'false')
