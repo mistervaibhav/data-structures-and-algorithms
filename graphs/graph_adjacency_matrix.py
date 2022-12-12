@@ -102,7 +102,7 @@ class Graph:
             if not visited.get(vertex, False):
                 self.___breadth_first_traversal_helper(vertex,visited)
         
-        pass
+         
     def has_path(self, source, destination, visited=dict()) -> bool:
 
         if self.has_edge(source, destination):
@@ -117,34 +117,53 @@ class Graph:
                     return True
 
         return False
+    
+    def get_path_dfs(self, source, destination, visited=dict(), path=list()) -> bool:
+    
+        if self.has_edge(source, destination):
+            return path.append(destination)
+
+        visited[source] = True
+
+        for i in range(self.vertices):
+            if self.has_edge(source, i) and not visited.get(i, False):
+                visited[i] = True
+                return self.get_path_dfs(i, destination, visited, path)
+
+        return []
 
 
 #################################################################################################################
 
-graph = Graph(5)
+# graph = Graph(5)
 
-graph.add_edge(0, 1)
-graph.add_edge(0, 2)
-graph.add_edge(1, 3)
-graph.add_edge(2, 3)
-graph.add_edge(2, 4)
+# graph.add_edge(0, 1)
+# graph.add_edge(0, 2)
+# graph.add_edge(1, 3)
+# graph.add_edge(2, 3)
+# graph.add_edge(2, 4)
 
 
 # graph.depth_first_traversal()
-graph.breadth_first_traversal()
+# graph.breadth_first_traversal()
 
 # graph.display()
 
 
-# if __name__ == "__main__":
-#     vertices, edges = map(int, input().split())
+if __name__ == "__main__":
+    vertices, edges = map(int, input().split())
 
-#     graph = Graph(vertices)
+    graph = Graph(vertices)
 
-#     for i in range(edges):
-#         source, destination = map(int, input().split())
-#         graph.addEdge(source, destination)
+    for i in range(edges):
+        source, destination = map(int, input().split())
+        graph.add_edge(source, destination)
 
-#     source, destination = map(int, input().split())
-#     print('true' if graph.has_path(source,destination) else 'false')
+    source, destination = map(int, input().split())
+    
+    # print('true' if graph.has_path(source,destination) else 'false')
+    
+    path = graph.get_path_dfs(source,destination)
+    
+    print(path)
  
