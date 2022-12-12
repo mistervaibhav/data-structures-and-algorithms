@@ -74,14 +74,16 @@ class Graph:
 
     def depth_first_traversal(self):
         visited = dict()
-        self.__depth_first_traversal_helper(0, visited)
-
-    def breadth_first_traversal(self):
+        
+        for vertex in range(self.vertices):
+            if not visited.get(vertex, False):
+                self.__depth_first_traversal_helper(0, visited)
+            
+    def ___breadth_first_traversal_helper(self, start, visited):
         queue = Queue()
-        queue.put(0)
-
-        visited = dict()
-        visited[0] = True
+        queue.put(start)
+        
+        visited[start] = True
 
         while not queue.empty():
             node = queue.get()
@@ -92,6 +94,15 @@ class Graph:
                     queue.put(i)
                     visited[i] = True
 
+    def breadth_first_traversal(self):
+        
+        visited = dict()
+        
+        for vertex in range(self.vertices):
+            if not visited.get(vertex, False):
+                self.___breadth_first_traversal_helper(vertex,visited)
+        
+        pass
     def has_path(self, source, destination, visited=dict()) -> bool:
 
         if self.has_edge(source, destination):
@@ -136,5 +147,4 @@ graph.breadth_first_traversal()
 
 #     source, destination = map(int, input().split())
 #     print('true' if graph.has_path(source,destination) else 'false')
-
-# comment for some dummy commit
+ 
