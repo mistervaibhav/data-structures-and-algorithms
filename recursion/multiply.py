@@ -1,4 +1,4 @@
-# Multiply two numbers without mathematical operators / with recursion
+# Multiply two numbers with recursion, without mathematical operators
 from utils.main import timer
 
 @timer
@@ -16,4 +16,4 @@ def multiply(x, y):
 
 
 if __name__ == "__main__":
-    #  print(multiply(300,413))
+     print(multiply(300,413))
