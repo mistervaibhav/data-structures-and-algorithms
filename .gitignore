@@ -2,3 +2,4 @@
 .pytest_cache
 Pipfile.lock
 .pytest_cache
+.idea
