@@ -1,9 +1,8 @@
-from queue import LifoQueue
+from queue import Queue
 
 if __name__ == "__main__":
 
-    # LifoQueue is a stack !
-    q = LifoQueue()
+    q = Queue()
 
     q.put(12)
     q.put(22)
