@@ -10,3 +10,4 @@ if __name__ == "__main__":
 
     while not q.empty():
         print(q.get())
+# ass
