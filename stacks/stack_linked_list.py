@@ -19,20 +19,18 @@ class Stack:
         self.__head = node
 
     def pop(self):
-
         if self.is_empty():
             print("Stack is Empty")
             return
 
-        data = self.__head
+        popped = self.__head
         self.__count -= 1
         self.__head = self.__head.next
-        return data
+        return popped.data
 
     def top(self):
-
         if self.is_empty():
             print("Stack is Empty")
             return
 
-        return self.__head
+        return self.__head.data

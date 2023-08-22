@@ -1,3 +1,5 @@
+from ..linked_lists.node import Node
+
 SINGLE_SPACE = " "
 
 

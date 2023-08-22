@@ -4,12 +4,12 @@ from queue import Queue
 class Graph:
     """non directed, non weighted"""
 
-    def __init__(self, vertices) -> None:
-        self.vertices = vertices
+    def __init__(self) -> None:
+        self.vertices = 0
         self.dictionary = dict()
 
-        for v in range(self.vertices):
-            self.dictionary[v] = list()
+        # for v in range(self.vertices):
+        #     self.dictionary[v] = list()
 
     def __is_index_valid(self, index):
         # another way would be
@@ -37,8 +37,9 @@ class Graph:
     def display(self):
         for vertex in self.dictionary:
             edges = self.dictionary.get(vertex)
-            for edge in edges:
-                print(f"{vertex} -> {edge}")
+            print(f"{vertex} --> ", edges)
+            # for edge in edges:
+            #     print(f"{vertex} -> {edge}")
             # print()
 
     def has_edge(self, source, destination):
@@ -48,11 +49,19 @@ class Graph:
         return destination in self.dictionary[source]
 
     def add_edge(self, source, destination):
-        if not self.__are_indexes_valid(source, destination):
-            print(f"CANNOT ADD EDGE BETWEEN {source} AND {destination}")
-            return
+        # if not self.__are_indexes_valid(source, destination):
+        #     print(f"CANNOT ADD EDGE BETWEEN {source} AND {destination}")
+        #     return
+
+        if source not in self.dictionary:
+            self.dictionary[source] = list()
+            self.vertices += 1
+        if destination not in self.dictionary:
+            self.dictionary[destination] = list()
+            self.vertices += 1
 
         self.dictionary[source].append(destination)
+        self.dictionary[destination].append(source)
 
     def remove_edge(self, source, destination):
         if not self.has_edge(source, destination):
@@ -60,6 +69,7 @@ class Graph:
             return
 
         self.dictionary[source].pop(destination)
+        self.dictionary[destination].pop(source)
 
     def __depth_first_traversal_helper(self, start, visited):
         print("Visited => ", start)
@@ -70,6 +80,8 @@ class Graph:
                 self.__depth_first_traversal_helper(i, visited)
 
     def depth_first_traversal(self):
+        print("_____DEPTH FIRST TRAVERSAL_____")
+
         visited = dict()
 
         for vertex in range(self.vertices):
@@ -92,6 +104,7 @@ class Graph:
                     visited[i] = True
 
     def breadth_first_traversal(self):
+        print("_____BREADTH FIRST TRAVERSAL_____")
         visited = dict()
 
         for vertex in range(self.vertices):
@@ -128,19 +141,24 @@ class Graph:
 
 #################################################################################################################
 
-graph = Graph(5)
+graph = Graph()
 
-graph.add_edge(0, 1)
-graph.add_edge(0, 2)
-graph.add_edge(1, 3)
-graph.add_edge(2, 3)
+graph.add_edge("lucknow", "new delhi")
+graph.add_edge("tokyo", "new york")
+graph.add_edge("new delhi", "meerut")
+graph.add_edge("mumbai", "jammu")
+graph.add_edge("gurugram", "lucknow")
 graph.add_edge(2, 4)
+graph.add_edge(6, 1)
+graph.add_edge(4, 6)
+graph.add_edge(4, 23)
+graph.add_edge(5, 5)
 
 
 # graph.depth_first_traversal()
-graph.breadth_first_traversal()
+# graph.breadth_first_traversal()
 
-# graph.display()
+graph.display()
 
 
 # if __name__ == "__main__":
