@@ -17,8 +17,6 @@ class HashMap:
     def __str__(self):
         string = "{ \n"
 
-        print("COUNT", self.__count)
-
         for head in self.__buckets:
             while head is not None:
                 print("iter", head.key)
