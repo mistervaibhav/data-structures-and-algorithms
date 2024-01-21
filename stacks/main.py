@@ -1,7 +1,6 @@
 from queue import LifoQueue
 
 if __name__ == "__main__":
-
     # LifoQueue is a stack !
     q = LifoQueue()
 

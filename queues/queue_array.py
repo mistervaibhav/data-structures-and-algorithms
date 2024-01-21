@@ -1,33 +1,46 @@
-class Queue:
-    def __init__(self):
-        self.__array = list()
-        self.__count = 0
-        self.__exit_index = 0
+SINGLE_SPACE = " "
 
-    def is_empty(self):
-        return self.__count == 0
+
+class Queue:
+    def __init__(self) -> None:
+        self.__array = list()
+
+    def __str__(self) -> str:
+        return SINGLE_SPACE.join([str(x) for x in self.__array])
 
     def size(self):
-        return self.__count
+        return len(self.__array)
 
-    def enqueue(self, data):
-        self.__array.append(data)
-        self.__count += 1
+    def is_empty(self):
+        return self.size() == 0
+
+    def enqueue(self, item: int):
+        self.__array.append(item)
 
     def dequeue(self):
+        """returns -1 if Queue is empty"""
+
         if self.is_empty():
-            print("Queue is Empty")
-            return
+            return -1
 
-        element = self.__array[self.__exit_index]
-        self.__exit_index += 1
-        self.__count -= 1
+        return self.__array.pop(0)
 
-        return element
+    def front(self):
+        """returns -1 if Queue is empty"""
 
-    def top(self):
         if self.is_empty():
-            print("Queue is Empty")
-            return
+            return -1
 
-        return self.__array[self.__exit_index]
+        return self.__array[0]
+
+
+if __name__ == "__main__":
+    queue = Queue()
+
+    queue.enqueue(123)
+    queue.enqueue(34)
+    queue.enqueue(45)
+    queue.enqueue(34)
+
+    while not queue.is_empty():
+        print(queue.dequeue())
